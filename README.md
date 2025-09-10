@@ -1,2 +1,2 @@
 # canecosfera.shop
-loja de estampas para produtos personalizados com ia
+Crie a sua caneca com estampas personalizadas com ia.
