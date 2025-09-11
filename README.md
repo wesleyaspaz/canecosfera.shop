@@ -1,2 +1,2 @@
 # canecosfera.shop
-Crie a sua caneca com estampas personalizadas com ia.
+LP canecosfera.shop produtos de software B2B
