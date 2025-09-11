@@ -1,286 +1,366 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canecosfera.shop | Crie Mockups de Canecas com Inteligência Artificial</title>
-    <meta name="description" content="Transforme suas ideias em mockups de canecas realistas e personalizados em segundos com o poder da nossa Inteligência Artificial. Perfeito para sua loja, evento ou presente.">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
-
+    <title>Canecosfera | Consultoria em Visualização de Dados</title>
     <style>
-        /* Custom styles to apply the Inter font */
-        body {
-            font-family: 'Inter', sans-serif;
+        /* --- Estilização Geral --- */
+        :root {
+            --primary-color: #00aaff;
+            --dark-bg: #121212;
+            --medium-bg: #1a1a1a;
+            --light-bg: #2a2a2a;
+            --text-color: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border-color: #333;
         }
-        /* Simple scroll-behavior */
-        html {
-            scroll-behavior: smooth;
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        /* --- Layout Principal --- */
+        .main-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-column {
+            width: 45%;
+            padding: 2rem 4rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .graph-column {
+            width: 55%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        /* --- Destaque do Grafo (Novo) --- */
+        .graph-showcase {
+            width: 100%;
+            height: 85%;
+            max-width: 800px;
+            background-color: var(--medium-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .graph-showcase:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 170, 255, 0.2);
+        }
+
+        .showcase-header {
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .showcase-header h3 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .showcase-header p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        #sigma-container {
+            flex-grow: 1; /* Ocupa o espaço restante */
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* --- Estilos do Conteúdo --- */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        ul.benefits {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        ul.benefits li {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        ul.benefits li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-right: 0.75rem;
+        }
+
+        /* --- Formulário de Contato --- */
+        .contact-form {
+            margin-top: 1rem;
+        }
+        
+        .contact-form p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--light-bg);
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: var(--text-color);
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #0088cc;
+            transform: translateY(-2px);
+        }
+
+        /* --- Rodapé --- */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 45%; /* Apenas na coluna de conteúdo */
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            background-color: var(--dark-bg);
+        }
+        
+        /* --- Responsividade para Telas Menores --- */
+        @media (max-width: 900px) {
+            body, html {
+                overflow: auto;
+            }
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .content-column, .graph-column, footer {
+                width: 100%;
+            }
+            .graph-column {
+                min-height: 400px; /* Altura mínima para o grafo */
+                padding: 1rem;
+            }
+            .graph-showcase {
+                height: 100%;
+            }
+            .content-column {
+                padding: 2rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            footer {
+                position: relative;
+                padding: 1.5rem 0;
+            }
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <!-- =========== Banner "Em Breve" =========== -->
-    <div class="bg-indigo-600 text-white text-center p-3 font-semibold text-sm">
-        <p>🚧 Lançamento em breve! Estamos a finalizar os últimos detalhes. 🚧</p>
-    </div>
-
-    <!-- =========== Header =========== -->
-    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-800 flex items-center">
-                <span class="text-3xl mr-2">☕</span>
-                Canecosfera
-            </a>
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="#como-funciona" class="text-gray-600 hover:text-indigo-600 transition duration-300">Como Funciona</a>
-                <a href="#exemplos" class="text-gray-600 hover:text-indigo-600 transition duration-300">Exemplos</a>
-                <a href="#precos" class="text-gray-600 hover:text-indigo-600 transition duration-300">Preços</a>
-                <a href="#contato" class="text-gray-600 hover:text-indigo-600 transition duration-300">Contato</a>
-            </div>
-            <a href="#" class="hidden md:block bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
-                Comece a Criar
-            </a>
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
-            <a href="#como-funciona" class="block text-gray-600 hover:text-indigo-600 transition duration-300 py-2">Como Funciona</a>
-            <a href="#exemplos" class="block text-gray-600 hover:text-indigo-600 transition duration-300 py-2">Exemplos</a>
-            <a href="#precos" class="block text-gray-600 hover:text-indigo-600 transition duration-300 py-2">Preços</a>
-            <a href="#contato" class="block text-gray-600 hover:text-indigo-600 transition duration-300 py-2">Contato</a>
-            <a href="#" class="block w-full text-center bg-indigo-600 text-white font-semibold px-5 py-2 mt-2 rounded-lg hover:bg-indigo-700 transition duration-300">
-                Comece a Criar
-            </a>
-        </div>
-    </header>
-
-    <!-- =========== Main Content =========== -->
-    <main>
-        <!-- =========== Hero Section =========== -->
-        <section class="py-20 md:py-32 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
-                    Crie Canecas Únicas com o Poder da <span class="text-indigo-600">Inteligência Artificial</span>.
-                </h1>
-                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                    Transforme suas ideias em mockups realistas de canecas em segundos. Perfeito para sua loja, evento ou para um presente inesquecível.
+    <div class="main-container">
+        <!-- Coluna de Conteúdo (Esquerda) -->
+        <div class="content-column">
+            <div class="content-wrapper">
+                <h1>Transforme Seus Dados em Decisões Inteligentes.</h1>
+                <p class="subtitle">
+                    A <strong>Canecosfera</strong> é especialista em consultoria e implementação de soluções de visualização de dados. O grafo ao lado não é apenas uma demonstração: é o tipo de ferramenta poderosa que podemos construir para o seu negócio.
                 </p>
-                <a href="#" class="bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 inline-block">
-                    Criar meu Mockup Grátis
-                </a>
-                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                    <img src="https://placehold.co/400x400/6366f1/ffffff?text=Arte+Abstrata" alt="Mockup de caneca com arte abstrata" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <img src="https://placehold.co/400x400/ec4899/ffffff?text=Logo+Empresa" alt="Mockup de caneca com logo de empresa" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 mt-8">
-                    <img src="https://placehold.co/400x400/22c55e/ffffff?text=Frase+Engraçada" alt="Mockup de caneca com frase engraçada" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <img src="https://placehold.co/400x400/f97316/ffffff?text=Personagem" alt="Mockup de caneca com personagem" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 mt-8">
-                </div>
-            </div>
-        </section>
+                <ul class="benefits">
+                    <li>Consultoria Especializada</li>
+                    <li>Implementação Ágil de Soluções</li>
+                    <li>Análise de Redes Complexas</li>
+                    <li>Visualizações de Alto Impacto</li>
+                </ul>
 
-        <!-- =========== Como Funciona Section =========== -->
-        <section id="como-funciona" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Tudo pronto em 3 passos simples.</h2>
-                    <p class="text-lg text-gray-600 mt-2">Da ideia ao mockup pronto para usar, sem complicação.</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-12 text-center">
-                    <!-- Step 1 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                <!-- Formulário de Contato -->
+                <div class="contact-form">
+                    <h2>Entre em Contato</h2>
+                    <p>Envie sua mensagem para ser atendido por um de nossos consultores.</p>
+                    <form action="https://formspree.io/f/canecosferastore@gmail.com" method="POST">
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Seu e-mail" required>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">1. Descreva sua Ideia</h3>
-                        <p class="text-gray-600">Escreva o que você imagina. Seja um "gato astronauta" ou o logo da sua empresa com um fundo floral.</p>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Sua mensagem" required></textarea>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">2. A IA Entra em Ação</h3>
-                        <p class="text-gray-600">Nossa inteligência artificial interpreta seu texto e gera um design exclusivo e original para a sua caneca.</p>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">3. Visualize e Baixe</h3>
-                        <p class="text-gray-600">Gostou do resultado? Visualize o mockup 3D e baixe a imagem em alta resolução, pronta para usar na sua loja ou gráfica.</p>
-                    </div>
+                        <button type="submit" class="submit-button">Enviar Mensagem</button>
+                    </form>
                 </div>
-            </div>
-        </section>
-
-        <!-- =========== Exemplos Section =========== -->
-        <section id="exemplos" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">A Criatividade não tem Limites</h2>
-                    <p class="text-lg text-gray-600 mt-2">Veja alguns exemplos criados pela nossa comunidade.</p>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Image examples -->
-                    <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/1e293b/ffffff?text=Estilo+Geométrico" alt="Mockup de caneca com design geométrico" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/be185d/ffffff?text=Aquarela+Floral" alt="Mockup de caneca com design de aquarela floral" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/047857/ffffff?text=Mascote+Divertido" alt="Mockup de caneca com mascote divertido" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/9333ea/ffffff?text=Paisagem+Galática" alt="Mockup de caneca com paisagem galática" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/b45309/ffffff?text=Tipografia+Moderna" alt="Mockup de caneca com tipografia moderna" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                     <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <img src="https://placehold.co/600x600/3b82f6/ffffff?text=Padrão+Corporativo" alt="Mockup de caneca com padrão corporativo" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== Preços Section =========== -->
-        <section id="precos" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Um Plano para Cada Necessidade</h2>
-                    <p class="text-lg text-gray-600 mt-2">Comece gratuitamente e evolua conforme sua demanda crescer.</p>
-                </div>
-                <div class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
-                    <!-- Plano Grátis -->
-                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
-                        <h3 class="text-2xl font-bold text-center">Grátis</h3>
-                        <p class="text-gray-500 text-center mt-2">Para experimentar</p>
-                        <p class="text-5xl font-extrabold text-center my-6">R$0</p>
-                        <ul class="space-y-4 text-gray-600">
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> 5 mockups por dia</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> Resolução padrão</li>
-                            <li class="flex items-center"><span class="text-red-500 mr-2">✖</span> Com marca d'água</li>
-                        </ul>
-                        <button class="w-full mt-8 py-3 px-6 border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition duration-300">Começar Gratuitamente</button>
-                    </div>
-                    <!-- Plano Pro (Destaque) -->
-                    <div class="bg-indigo-600 text-white p-10 rounded-xl shadow-2xl transform scale-105 relative">
-                        <span class="absolute top-0 right-0 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">MAIS POPULAR</span>
-                        <h3 class="text-3xl font-bold text-center">Pro</h3>
-                        <p class="text-indigo-200 text-center mt-2">Para profissionais e lojas</p>
-                        <p class="text-5xl font-extrabold text-center my-6">R$29<span class="text-lg font-medium text-indigo-200">/mês</span></p>
-                        <ul class="space-y-4 text-indigo-100">
-                             <li class="flex items-center"><span class="text-white mr-2">✔</span> Mockups ilimitados</li>
-                            <li class="flex items-center"><span class="text-white mr-2">✔</span> Alta resolução (4K)</li>
-                            <li class="flex items-center"><span class="text-white mr-2">✔</span> Sem marca d'água</li>
-                            <li class="flex items-center"><span class="text-white mr-2">✔</span> Suporte prioritário</li>
-                        </ul>
-                        <button class="w-full mt-8 py-3 px-6 bg-white text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 transition duration-300 transform hover:scale-105">Assinar Plano Pro</button>
-                    </div>
-                    <!-- Plano Empresa -->
-                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
-                        <h3 class="text-2xl font-bold text-center">Empresa</h3>
-                        <p class="text-gray-500 text-center mt-2">Para grandes volumes</p>
-                        <p class="text-4xl font-extrabold text-center my-6">Personalizado</p>
-                        <ul class="space-y-4 text-gray-600">
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> Tudo do plano Pro</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> Acesso à API</li>
-                            <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> Gerente de conta dedicado</li>
-                        </ul>
-                        <button class="w-full mt-8 py-3 px-6 border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition duration-300">Entrar em Contato</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== CTA Final Section =========== -->
-        <section id="contato" class="py-20 bg-indigo-700 text-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold">Pronto para dar vida às suas canecas?</h2>
-                <p class="text-lg text-indigo-200 mt-2 mb-8 max-w-2xl mx-auto">Junte-se a milhares de criadores que já estão transformando ideias em produtos reais.</p>
-                <a href="#" class="bg-white text-indigo-600 font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 inline-block">
-                    Criar meu Primeiro Mockup
-                </a>
-            </div>
-        </section>
-
-    </main>
-    
-    <!-- =========== Footer =========== -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="md:flex md:justify-between">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold flex items-center">
-                       <span class="text-3xl mr-2">☕</span>
-                       Canecosfera.shop
-                    </a>
-                    <p class="mt-2 text-gray-400">Criando designs, uma caneca por vez.</p>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                    <div>
-                        <h2 class="mb-4 text-sm font-semibold text-gray-200 uppercase tracking-wider">Recursos</h2>
-                        <ul class="text-gray-400 space-y-2">
-                            <li><a href="#como-funciona" class="hover:underline">Como Funciona</a></li>
-                            <li><a href="#exemplos" class="hover:underline">Exemplos</a></li>
-                            <li><a href="#precos" class="hover:underline">Preços</a></li>
-                        </ul>
-                    </div>
-                     <div>
-                        <h2 class="mb-4 text-sm font-semibold text-gray-200 uppercase tracking-wider">Legal</h2>
-                        <ul class="text-gray-400 space-y-2">
-                            <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
-                            <li><a href="#" class="hover:underline">Termos de Serviço</a></li>
-                        </ul>
-                    </div>
-                     <div>
-                        <h2 class="mb-4 text-sm font-semibold text-gray-200 uppercase tracking-wider">Contato</h2>
-                        <ul class="text-gray-400 space-y-2">
-                            <li><a href="mailto:contato@canecosfera.shop" class="hover:underline">contato@canecosfera.shop</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-6 border-gray-700 sm:mx-auto lg:my-8" />
-            <div class="text-center text-gray-500">
-                &copy; 2024 Canecosfera.shop™. Todos os direitos reservados.
             </div>
         </div>
+
+        <!-- Coluna do Grafo (Direita) -->
+        <div class="graph-column">
+            <div class="graph-showcase">
+                <div class="showcase-header">
+                    <h3>Demonstração Interativa</h3>
+                    <p>Arraste para mover e use o scroll para zoom</p>
+                </div>
+                <div id="sigma-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2025 Canecosfera. Todos os direitos reservados.
     </footer>
 
-    <!-- JavaScript for Mobile Menu -->
+
+    <!-- Bibliotecas para o Sigma.js -->
+    <script src="https://cdn.jsdelivr.net/npm/graphology@0.25.1/dist/graphology.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sigma@2.4.0/build/sigma.min.js"></script>
+
     <script>
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById('sigma-container');
+            if (!container) return;
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+            const graph = new graphology.Graph();
 
-        // Close menu when a link is clicked
-        const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
-        for (let link of mobileMenuLinks) {
-            link.addEventListener('click', () => {
-                 mobileMenu.classList.add('hidden');
+            // Adicionar nós e arestas (mesma lógica anterior)
+            graph.addNode("canecosfera", { x: 0, y: 0, size: 25, label: "Canecosfera", color: "var(--primary-color)" });
+
+            const services = [
+                { id: "consultoria", label: "Consultoria", color: "#4caf50" },
+                { id: "implementacao", label: "Implementação", color: "#ff9800" },
+                { id: "analise", label: "Análise de Redes", color: "#f44336" },
+                { id: "bi", label: "Business Intelligence", color: "#9c27b0" },
+            ];
+
+            services.forEach((service, i) => {
+                const angle = (i * 2 * Math.PI) / services.length;
+                graph.addNode(service.id, { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5, size: 15, label: service.label, color: service.color });
+                graph.addEdge("canecosfera", service.id, { size: 2, color: 'var(--border-color)' });
             });
-        }
+            
+            const subNodes = {
+                consultoria: [{id: "diagnostico", label: "Diagnóstico"}, {id: "estrategia", label: "Estratégia"}],
+                implementacao: [{id: "dashboards", label: "Dashboards"}, {id: "grafos", label: "Grafos Prontos"}],
+                analise: [{id: "fraude", label: "Detecção de Fraude"}, {id: "influencia", label: "Análise de Influência"}],
+                bi: [{id: "kpis", label: "Monitoramento KPIs"}, {id: "relatorios", label: "Relatórios"}],
+            }
+
+            Object.keys(subNodes).forEach((serviceKey, serviceIndex) => {
+                const parentAngle = (serviceIndex * 2 * Math.PI) / services.length;
+                subNodes[serviceKey].forEach((subNode, i) => {
+                    const angle = parentAngle + (i - 0.5) * 0.3;
+                     graph.addNode(subNode.id, { x: Math.cos(angle) * 10, y: Math.sin(angle) * 10, size: 8, label: subNode.label, color: "#ccc" });
+                    graph.addEdge(serviceKey, subNode.id, { size: 1, color: '#444' });
+                });
+            });
+
+            // Renderizar o grafo com Sigma.js
+            const renderer = new Sigma(graph, container, {
+                allowInvalidContainer: true,
+                renderEdgeLabels: false,
+                defaultNodeType: 'circle',
+                defaultEdgeType: 'arrow',
+                labelFont: "Inter",
+                labelColor: { color: 'var(--text-color)' },
+                edgeColor: { default: '#444' }
+            });
+
+            renderer.getCamera().zoomTo(0.7);
+        });
     </script>
+
 </body>
 </html>
 
