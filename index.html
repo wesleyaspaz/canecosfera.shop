@@ -7,13 +7,13 @@
     <style>
         /* --- Estilização Geral --- */
         :root {
-            --primary-color: #00aaff;
-            --dark-bg: #121212;
-            --medium-bg: #1a1a1a;
-            --light-bg: #2a2a2a;
-            --text-color: #f5f5f5;
-            --text-muted: #b0b0b0;
-            --border-color: #333;
+            --primary-color: #2563eb; /* Azul principal */
+            --secondary-color: #e11d48; /* Rosa/Vermelho para botões */
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --border-color: #e2e8f0;
         }
 
         body, html {
@@ -21,379 +21,574 @@
             padding: 0;
             width: 100%;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
+            background-color: var(--background-color);
+            color: var(--text-dark);
             overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Fundo com Formas Abstratas --- */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        body::before {
+            background: rgba(37, 99, 235, 0.15);
+            width: 400px;
+            height: 400px;
+            top: -150px;
+            right: -150px;
+        }
+
+        body::after {
+            background: rgba(225, 29, 72, 0.1);
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -100px;
         }
 
         /* --- Layout Principal --- */
-        .main-container {
-            width: 100%;
-        }
-
-        .content-column {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            box-sizing: border-box;
-        }
-
-        .graph-column {
-            width: 100%;
-            height: 70vh;
-            min-height: 500px;
+        .page-container {
             display: flex;
-            align-items: center;
             justify-content: center;
             padding: 2rem;
             box-sizing: border-box;
         }
 
-        /* --- Destaque do Grafo --- */
-        .graph-showcase {
+        .main-card {
             width: 100%;
-            height: 100%;
-            max-width: 900px;
-            background-color: var(--medium-bg);
+            max-width: 1200px;
+            background-color: var(--card-background);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            margin: 2rem 0;
+        }
+        
+        /* --- Cabeçalho / Navbar --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            flex-wrap: wrap;
         }
 
-        .graph-showcase:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0, 170, 255, 0.2);
-        }
-
-        .showcase-header {
-            padding: 1rem 1.5rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            background-color: rgba(0,0,0,0.2);
-        }
-
-        .showcase-header h3 {
-            margin: 0 0 0.25rem 0;
-            font-size: 1rem;
-            color: var(--text-color);
-            font-weight: 600;
-        }
-
-        .showcase-header p {
-            margin: 0;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        #sigma-container {
-            flex-grow: 1;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* --- Estilos do Conteúdo --- */
-        h1 {
-            font-size: 2.8rem;
+        .logo {
             font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            color: #fff;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.8rem;
+            font-size: 1.25rem;
             color: var(--primary-color);
-            margin-top: 4rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            text-align: center;
         }
 
-        p.subtitle {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 14px rgba(225, 29, 72, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
+        }
+        .btn-secondary {
+             background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* --- Estilo de Seção Padrão --- */
+        .section {
+            padding: 4rem 1rem;
             text-align: center;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            color: var(--text-dark);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: -1.5rem auto 2.5rem;
+        }
+
+        /* --- Seção Hero --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            padding: 3rem 1rem;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 0 0 1rem 0;
+            color: var(--text-dark);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+        }
+        .hero-text strong {
+            color: var(--primary-color);
+        }
+
+        .hero-illustration {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 400px;
         }
         
         /* --- Seção de Produtos --- */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: 2rem;
+            text-align: left;
         }
 
         .product-card {
-            background-color: var(--medium-bg);
+            background-color: var(--background-color);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
         }
 
         .product-card .icon {
             color: var(--primary-color);
-            margin-bottom: 1rem;
-            width: 40px;
-            height: 40px;
+            margin-bottom: 1.5rem;
+            width: 48px;
+            height: 48px;
         }
 
         .product-card h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.1rem;
-            color: var(--text-color);
+            margin: 0 0 0.75rem 0;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
         .product-card p {
             margin: 0;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
             flex-grow: 1;
         }
 
-        /* --- Formulário de Contato --- */
-        .contact-form p {
+        /* --- Seção Sobre Nós --- */
+        .about-section-content {
+            display: flex;
+            gap: 3rem;
+            text-align: left;
+            align-items: flex-start;
+        }
+        .about-photo {
+            flex-basis: 300px;
+            flex-shrink: 0;
+            height: 300px;
+            background-color: var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
             font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 1.5rem;
-            text-align: center;
         }
-
-        .form-group {
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+        .about-text p {
             margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .about-skills h4 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .about-skills ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .about-skills li {
+            background-color: var(--background-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
         }
 
+        /* --- Seção Contato --- */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            background-color: var(--light-bg);
-            border: 1px solid #444;
-            border-radius: 6px;
-            color: var(--text-color);
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--background-color);
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
             box-sizing: border-box;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
-
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
-
-        .submit-button {
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 0.9rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+        .contact-form .btn {
             width: 100%;
+            font-size: 1.1rem;
         }
 
-        .submit-button:hover {
-            background-color: #0088cc;
-            transform: translateY(-2px);
-        }
-
-        /* --- Rodapé --- */
-        footer {
+        /* --- Footer --- */
+        .main-footer {
             text-align: center;
-            padding: 4rem 2rem 2rem 2rem;
-            font-size: 0.85rem;
-            color: #666;
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
+            padding: 2rem 1rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* --- Estilo para o Dialogflow Messenger --- */
+        df-messenger {
+           --df-messenger-bot-message: #f3f4f6;
+           --df-messenger-button-title-color: var(--primary-color);
+           --df-messenger-chat-background-color: #ffffff;
+           --df-messenger-font-color: var(--text-dark);
+           --df-messenger-send-icon: var(--primary-color);
+           --df-messenger-user-message: var(--primary-color);
+           z-index: 999;
+           position: fixed;
+           bottom: 16px;
+           right: 16px;
+        }
+        
+        /* --- Ilustração SVG --- */
+        .illustration-svg {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+        }
+        
+        /* --- Responsividade --- */
+        @media (max-width: 992px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-illustration {
+                margin-top: 3rem;
+            }
+             .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .about-section-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-photo {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+             .main-nav {
+                display: none;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
         }
 
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    
+    <!-- INÍCIO: Código do Dialogflow Messenger -->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+      project-id="seu-project-id"
+      agent-id="seu-agent-id"
+      language-code="pt-br"
+      location="global"
+      chat-title="Assistente Canecosfera">
+    </df-messenger>
+    <!-- FIM: Código do Dialogflow Messenger -->
 
-    <div class="main-container">
-        <!-- Coluna de Conteúdo -->
-        <div class="content-column">
-            <div class="content-wrapper">
-                <h1>Transforme Seus Dados em Decisões Inteligentes.</h1>
-                <p class="subtitle">
-                    A <strong>Canecosfera</strong> é especialista em consultoria e implementação de soluções de visualização de dados, infraestrutura e marketing digital. As ferramentas que demonstramos são as mesmas que usamos para impulsionar o seu negócio.
-                </p>
+    <div class="page-container">
+        <div class="main-card">
+            <header class="main-header">
+                <div class="logo">CANECOSFERA</div>
+                <nav class="main-nav">
+                    <a href="#">Home</a>
+                    <a href="#produtos">Produtos</a>
+                    <a href="#sobre-nos">Sobre Nós</a>
+                    <a href="#contato">Contato</a>
+                </nav>
+                <a href="#contato" class="btn btn-primary">Começar</a>
+            </header>
 
-                <!-- Seção de Produtos -->
-                <section class="products-section">
-                    <h2>Nossos Produtos Premium B2B</h2>
-                    <div class="products-grid">
-                        <!-- Produto 1: Infraestrutura -->
-                        <div class="product-card">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
-                            <h3>Infraestrutura com Proxmox</h3>
-                            <p>Instalação e gerenciamento de infraestrutura de virtualização própria, garantindo segurança e controle total dos seus dados.</p>
-                        </div>
-                        <!-- Produto 2: Branding com IA -->
-                        <div class="product-card">
-                           <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
-                            <h3>Branding Profissional com IA</h3>
-                            <p>Criação de imagens, vídeos e áudios com qualidade de estúdio usando IA de ponta, como o modelo WAN 2.2.</p>
-                        </div>
-                        <!-- Produto 3: Landing Pages -->
-                        <div class="product-card">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                            <h3>Landing Pages de Alta Conversão</h3>
-                            <p>Desenvolvimento e hospedagem de landing pages rápidas e otimizadas para maximizar a geração de leads e vendas.</p>
-                        </div>
-                         <!-- Produto 4: Integração de APIs -->
-                        <div class="product-card">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-                            <h3>Integração de APIs</h3>
-                            <p>Conectamos seus sistemas e automatizamos processos através da integração de APIs, otimizando o fluxo de trabalho.</p>
-                        </div>
-                        <!-- Produto 5: Dialogflow -->
-                        <div class="product-card">
-                           <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-                           <h3>Chatbots com Dialogflow</h3>
-                           <p>Desenvolvemos e integramos chatbots e assistentes virtuais inteligentes com Google Dialogflow para automatizar o atendimento.</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <!-- Coluna do Grafo -->
-        <div class="graph-column">
-            <div class="graph-showcase">
-                <div class="showcase-header">
-                    <h3>Demonstração de Ecossistema</h3>
-                    <p>Nossas soluções se conectam para gerar mais valor</p>
+            <main class="hero-section">
+                <div class="hero-text">
+                    <h1>Unindo automação, dados e IA para impulsionar o seu sucesso.</h1>
+                    <p>
+                        A <strong>Canecosfera</strong> é especialista em consultoria e implementação de soluções de visualização de dados, infraestrutura e marketing digital. As ferramentas que demonstramos são as mesmas que usamos para impulsionar o seu negócio.
+                    </p>
+                    <a href="#produtos" class="btn btn-secondary">Nossos Produtos</a>
                 </div>
-                <div id="sigma-container"></div>
-            </div>
-        </div>
+                <div class="hero-illustration">
+                    <svg viewBox="0 0 520 350" class="illustration-svg" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="robot-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                                <feOffset dx="2" dy="4"/>
+                                <feComponentTransfer>
+                                    <feFuncA type="linear" slope="0.3"/>
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <rect x="200" y="20" width="180" height="310" rx="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+                        <rect x="210" y="30" width="160" height="290" rx="10" fill="#fff"/>
+                        <rect x="220" y="100" width="120" height="40" rx="10" fill="#dbeafe"/>
+                        <rect x="230" y="110" width="70" height="4" rx="2" fill="#93c5fd"/>
+                        <rect x="230" y="120" width="90" height="4" rx="2" fill="#93c5fd"/>
+                        <rect x="220" y="190" width="140" height="50" rx="10" fill="#dbeafe"/>
+                        <rect x="230" y="200" width="100" height="4" rx="2" fill="#93c5fd"/>
+                        <rect x="230" y="210" width="120" height="4" rx="2" fill="#93c5fd"/>
+                        <rect x="230" y="220" width="80" height="4" rx="2" fill="#93c5fd"/>
+                        <rect x="90" y="150" width="100" height="40" rx="10" fill="#fecaca"/>
+                        <path d="M 190 170 l 15 -10 v 20 z" fill="#fecaca"/>
+                        <g transform="translate(380, 150)" filter="url(#shadow)">
+                            <rect x="0" y="50" width="100" height="100" rx="15" fill="url(#robot-gradient)"/>
+                            <rect x="30" y="75" width="40" height="40" rx="5" fill="#e0f2fe"/>
+                             <path d="M35,95 Q50,85 65,95" stroke="#2563eb" stroke-width="2" fill="none"/>
+                            <circle cx="50" cy="25" r="25" fill="#93c5fd"/>
+                            <circle cx="40" cy="25" r="5" fill="white"/>
+                            <circle cx="60" cy="25" r="5" fill="white"/>
+                             <path d="M50 -5 L 50 -15" stroke="#93c5fd" stroke-width="2"/>
+                            <circle cx="50" cy="-20" r="5" fill="#f87171"/>
+                            <rect x="-10" y="60" width="10" height="40" rx="5" fill="#93c5fd"/>
+                            <rect x="100" y="60" width="10" height="40" rx="5" fill="#93c5fd"/>
+                            <circle cx="20" cy="155" r="10" fill="#9ca3af"/>
+                            <circle cx="80" cy="155" r="10" fill="#9ca3af"/>
+                        </g>
+                        <g transform="translate(110, 100)" filter="url(#shadow)">
+                           <path d="M50,80 A40,40 0 0,1 50,160 L50,80" fill="#f43f5e" />
+                           <rect x="40" y="155" width="20" height="50" fill="#1e293b"/>
+                           <circle cx="50" cy="50" r="20" fill="#ffedd5"/>
+                           <path d="M45 30 C 50 10, 70 20, 60 40" fill="#44403c" />
+                           <path d="M80 85 C 100 95, 100 135, 80 145" stroke="#f43f5e" stroke-width="8" fill="none" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                </div>
+            </main>
 
-        <!-- Formulário e Rodapé -->
-        <div class="content-column">
-             <section class="contact-form">
-                <h2>Entre em Contato</h2>
-                <p>Visite <strong>canecosfera.shop</strong> ou nos envie uma mensagem para ser atendido por um de nossos consultores.</p>
-                <form action="https://formspree.io/f/canecosferastore@gmail.com" method="POST">
+            <!-- Seção de Produtos -->
+            <section id="produtos" class="section">
+                <h2 class="section-title">Nossos Produtos Premium B2B</h2>
+                <div class="products-grid">
+                     <!-- Card de Produto -->
+                    <div class="product-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                        <h3>Infraestrutura com Proxmox</h3>
+                        <p>Instalação e gerenciamento de infraestrutura de virtualização própria, garantindo segurança e controle total dos seus dados.</p>
+                    </div>
+                    <!-- Card de Produto -->
+                    <div class="product-card">
+                       <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                        <h3>Branding Profissional com IA</h3>
+                        <p>Criação de imagens, vídeos e áudios com qualidade de estúdio usando IA de ponta, como o modelo WAN 2.2.</p>
+                    </div>
+                    <!-- Card de Produto -->
+                    <div class="product-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <h3>Landing Pages de Alta Conversão</h3>
+                        <p>Desenvolvimento e hospedagem de landing pages rápidas e otimizadas para maximizar a geração de leads e vendas.</p>
+                    </div>
+                     <!-- Card de Produto -->
+                    <div class="product-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                        <h3>Integração de APIs</h3>
+                        <p>Conectamos seus sistemas e automatizamos processos através da integração de APIs, otimizando o fluxo de trabalho.</p>
+                    </div>
+                    <!-- Card de Produto -->
+                    <div class="product-card">
+                       <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                       <h3>Chatbots com Dialogflow</h3>
+                       <p>Desenvolvemos e integramos chatbots e assistentes virtuais inteligentes com Google Dialogflow para automatizar o atendimento.</p>
+                    </div>
+                     <!-- Card de Produto -->
+                    <div class="product-card">
+                       <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
+                       <h3>Workshops Especializados</h3>
+                       <p>Capacite sua equipe com workshops práticos sobre nossas tecnologias, desde Proxmox até a criação de chatbots com Dialogflow.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção Sobre Nós -->
+            <section id="sobre-nos" class="section">
+                <h2 class="section-title">Sobre Nós</h2>
+                <div class="about-section-content">
+                    <div class="about-photo">
+                        Espaço para Foto
+                    </div>
+                    <div class="about-text">
+                        <h3>Wesley Paz</h3>
+                        <p>
+                            <strong>Desenvolvedor Júnior | Graduando em Análise e Desenvolvimento de Sistemas</strong><br>
+                            FATEC Dom Paulo Evaristo Arns | 6º Semestre
+                        </p>
+
+                        <div class="about-skills">
+                            <h4>🛠️ Conhecimentos Práticos</h4>
+                            <ul>
+                                <li><strong>Homelab com Proxmox VE:</strong> Administração de virtualização (VMs, LXC), clusters, alta disponibilidade, redes e armazenamento.</li>
+                                <li><strong>Landing Pages em Nuvem (Free Tier):</strong> Configuração de baixo custo com domínio próprio, proteção Cloudflare e hospedagem no GitHub Pages.</li>
+                                <li><strong>Geração de Mídia com IA:</strong> Uso de ComfyUI (WAN 2.2) para imagens/vídeos e Pinokio para áudio e edição.</li>
+                            </ul>
+
+                            <h4>🧠 Habilidades Técnicas</h4>
+                             <ul>
+                                <li><strong>Sistemas Operacionais:</strong> Linux (diversas distros), Windows e ChromeOS.</li>
+                                <li><strong>Infraestrutura:</strong> VPS, SSH, DNS, VirtualBox, Boxes, configuração de servidores e manutenção de hardware.</li>
+                                <li><strong>Desenvolvimento:</strong> Backend Python (Flask, POO), Frontend (HTML, CSS, JS), Dockerfile, Nginx.</li>
+                                <li><strong>Ferramentas:</strong> Astah UML, Penpot, Figma, Pacote Office/LibreOffice, Kanban (GitHub).</li>
+                            </ul>
+                            
+                            <h4>Idiomas</h4>
+                            <ul>
+                                <li>Inglês Intermediário Avançado (TOEIC 740)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Contato -->
+            <section id="contato" class="section">
+                <h2 class="section-title">Entre em Contato</h2>
+                <p class="section-subtitle">Tem uma pergunta ou quer iniciar um projeto? Nos envie uma mensagem!</p>
+                <form action="https://formspree.io/f/mrbyylea" method="POST" class="contact-form">
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Seu e-mail" required>
+                        <input type="text" name="name" placeholder="Seu Nome" required>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="Sua mensagem" required></textarea>
+                        <input type="email" name="email" placeholder="Seu E-mail (ex: seuemail@zoho.com)" required>
                     </div>
-                    <button type="submit" class="submit-button">Enviar Mensagem</button>
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Sua Mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
                 </form>
             </section>
             
-            <footer>
+            <footer class="main-footer">
                 &copy; 2025 Canecosfera. Todos os direitos reservados.
             </footer>
         </div>
     </div>
-    
-
-    <!-- Bibliotecas para o Sigma.js -->
-    <script src="https://cdn.jsdelivr.net/npm/graphology@0.25.1/dist/graphology.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sigma@2.4.0/build/sigma.min.js"></script>
-
-    <script>
-        // Variável para guardar a instância do renderer
-        let renderer = null;
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.getElementById('sigma-container');
-            if (!container) return;
-
-            const graph = new graphology.Graph();
-            
-            // Nó central
-            graph.addNode("canecosfera", { x: 0, y: 0, size: 25, label: "Canecosfera", color: "var(--primary-color)" });
-
-            // Categorias de produtos
-            const categories = [
-                { id: "infra", label: "Infraestrutura", color: "#f44336" },
-                { id: "branding", label: "Branding com IA", color: "#9c27b0" },
-                { id: "web", label: "Marketing Web", color: "#ff9800" },
-                { id: "integration", label: "Integração (APIs)", color: "#4caf50" },
-            ];
-
-            categories.forEach((cat, i) => {
-                const angle = (i * 2 * Math.PI) / categories.length;
-                graph.addNode(cat.id, { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5, size: 15, label: cat.label, color: cat.color });
-                graph.addEdge("canecosfera", cat.id, { size: 2, color: 'var(--border-color)' });
-            });
-            
-            // Sub-nós (tecnologias/produtos específicos)
-            const subNodes = {
-                infra: [{id: "proxmox", label: "Proxmox VE"}],
-                branding: [{id: "wan22", label: "WAN 2.2"}, {id: "mediaGen", label: "Mídia Sintética"}],
-                web: [{id: "landingpages", label: "Landing Pages"}, {id: "conversion", label: "Otimização"}],
-                integration: [{id: "rest", label: "REST APIs"}, {id: "automation", label: "Automação"}, {id: "dialogflow", label: "Dialogflow"}],
-            }
-
-            Object.keys(subNodes).forEach((catKey, catIndex) => {
-                const parentAngle = (catIndex * 2 * Math.PI) / categories.length;
-                subNodes[catKey].forEach((subNode, i) => {
-                    const angle = parentAngle + (i - (subNodes[catKey].length - 1) / 2) * 0.25;
-                     graph.addNode(subNode.id, { x: Math.cos(angle) * 9, y: Math.sin(angle) * 9, size: 8, label: subNode.label, color: "#ccc" });
-                    graph.addEdge(catKey, subNode.id, { size: 1, color: '#444' });
-                });
-            });
-
-            // Renderizar o grafo com Sigma.js
-            renderer = new Sigma(graph, container, {
-                allowInvalidContainer: true,
-                renderEdgeLabels: false,
-                defaultNodeType: 'circle',
-                labelFont: "Inter",
-                labelColor: { color: 'var(--text-color)' },
-                edgeColor: { default: '#444' }
-            });
-
-            // Ajuste de câmera inicial
-            renderer.getCamera().zoomTo(0.75);
-        });
-
-        // Adiciona o listener para redimensionar o grafo
-        window.addEventListener('resize', () => {
-            if (renderer) {
-                renderer.resize();
-            }
-        });
-    </script>
-
 </body>
 </html>
+
+
 
